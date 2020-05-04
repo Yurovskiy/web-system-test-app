@@ -1,0 +1,38 @@
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ebebeb;
+
+    .auth-body {
+        width: 500px;
+        background-color: #ffffff;
+        box-shadow: 0 0 20px 1px rgba(150, 150, 150, 0.5);
+
+        .auth-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background-color: #2196f3;
+
+            .active-link {
+                background-color: #ffffff;
+                color: #2196f3;
+            }
+
+            h4 {
+                padding: 15px 0;
+                margin: 0;
+                text-align: center;
+                color: #ffffff;
+                font-size: 20px;
+                outline: none;
+                cursor: pointer;
+            }
+        }
+
+        .auth-content {
+            padding: 30px;
+        }
+    }
+}
