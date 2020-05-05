@@ -1,0 +1,21 @@
+<div class="flex-container">
+    <div class="login-body">
+        <div class="login-header">
+            <h4>Sign In</h4>
+        </div>
+        <div class="login-content">
+            <form class="login-form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                <label for="login-email">Email:
+                    <input formControlName="email" type="email" id="login-email">
+                </label>
+                <label for="login-pass">Password:
+                    <input formControlName="password" type="password" id="login-pass">
+                </label>
+                <input class="login-btn" type="submit" value="Login">
+            </form>
+            <div class="sign-up-link">
+                <a routerLink="/sign-up">Sign up</a>
+            </div>
+        </div>
+    </div>
+</div>
