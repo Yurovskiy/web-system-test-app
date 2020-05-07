@@ -17,10 +17,14 @@
 
             .back-btn {
                 position: absolute;
-                top: 14px;
-                left: 14px;
-                text-transform: capitalize;
-                padding: 0px 10px;
+                top: 8px;
+                left: 30px;
+                font-size: 24px;
+                color: #ffffff;
+            }
+            .back-btn:hover {
+                cursor: pointer;
+                transform: scale(1.1);
             }
 
             .active-link {

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataService } from '../../services/data.service';
-
-import { IUser } from '../../models/user';
 
 @Component({
     // tslint:disable-next-line: component-selector
@@ -14,12 +13,12 @@ import { IUser } from '../../models/user';
 // tslint:disable-next-line: component-class-suffix
 export class NgbdModalAdd {
 
-    public newUser: IUser = {
-        name: '',
-        email: '',
-        role: '',
-        password: ''
-    };
+    public profileForm = new FormGroup({
+        name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+        email: new FormControl('', [Validators.email, Validators.required]),
+        password: new FormControl('', [Validators.required, Validators.minLength(4)]),
+        role: new FormControl('', Validators.required)
+    });
 
     constructor(
         config: NgbModalConfig,
@@ -35,10 +34,7 @@ export class NgbdModalAdd {
     }
 
     public addNewUser(): void {
-        this.dataService.addNewUser(this.newUser);
-        this.newUser.name = '';
-        this.newUser.email = '';
-        this.newUser.password = '';
+        this.dataService.addNewUser(this.profileForm.value);
     }
 
 }

@@ -22,11 +22,6 @@ export class DataService {
     return this.http.get<IUserList>(this.apiAllUsers);
   }
 
-  // public getUser(id: number): Observable<IUser> {
-  //   const url = `${this.apiUser}/${id}`;
-  //   return this.http.get<IUser>(url);
-  // }
-
   public addNewUser(user: IUser): void {
     this.http.post<IUser>(this.apiUser, user).subscribe(u => {
       this.getAllUsers.next(null);

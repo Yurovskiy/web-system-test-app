@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './../../services/auth.service';
 import { DataService } from './../../services/data.service';
-import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IUserList, IUser, IUserData } from './../../models/user';
 
@@ -17,6 +18,13 @@ export class ListComponent implements OnInit, OnDestroy {
 
   public page = 1;
   public pageSize = 7;
+
+  public profileForm = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    email: new FormControl('', [Validators.email, Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    role: new FormControl('', Validators.required)
+  });
 
   constructor(
     public authService: AuthService,
@@ -58,7 +66,6 @@ export class ListComponent implements OnInit, OnDestroy {
       password: ''
     };
     this.dataService.updateUser(newData, user.id).subscribe(() => this.getUsers());
-    console.log(newData);
   }
 
   public open(content: any) {

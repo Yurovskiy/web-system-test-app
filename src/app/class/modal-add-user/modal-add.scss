@@ -4,26 +4,11 @@
 
 .add-user {
     display: grid;
-    gap: 15px;
 
     label {
         display: grid;
         transition: all 0.2s ease-in-out;
         color: #5f5f5f;
-    }
-    label:hover {
-        color: #2196f3;
-    }
-
-    input {
-        background: none;
-        border: none;
-        outline: none;
-        border-bottom: 1px solid #5f5f5f;
-        transition: all 0.2s ease-in-out;
-    }
-    input:focus {
-        border-bottom: 1px solid #2196f3;
     }
 
     .radio-section {

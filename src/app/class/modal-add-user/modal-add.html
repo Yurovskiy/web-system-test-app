@@ -6,29 +6,66 @@
         </button>
     </div>
     <div class="modal-body">
-        <form class="add-user" (ngSubmit)="addNewUser()">
-            <label for="new-name">Name:
-                <input [(ngModel)]="newUser.name" type="text" id="new-name" name="name">
-            </label>
-            <label for="new-email">Email:
-                <input [(ngModel)]="newUser.email" type="text" id="new-email" name="email">
-            </label>
-            <div class="btn-group btn-group-toggle radio-section" ngbRadioGroup name="radioBasic" [(ngModel)]="newUser.role">
-                Select role:
-                <label ngbButtonLabel class="btn-primary text-white">
-                    <input ngbButton type="radio" value="admin"> Admin
-                </label>
-                <label ngbButtonLabel class="btn-primary text-white">
-                    <input ngbButton type="radio" value="user"> User
-                </label>
+        <form class="add-user" [formGroup]="profileForm" (ngSubmit)="addNewUser()">
+            <div class="form-group">
+                <label for="add-user-name">Name:</label>
+                <input 
+                    formControlName="name" required minlength="4"
+                    type="text" id="add-user-name" name="name" class="form-control"
+                    [ngClass]="{'is-invalid':profileForm.get('name').touched && profileForm.get('name').invalid}" />
+                <div *ngIf="profileForm.get('name').touched && profileForm.get('name').invalid" class="invalid-feedback">
+                    <div *ngIf="profileForm.get('name').errors.required">Name is required</div>
+                    <div *ngIf="profileForm.get('name').errors.minlength">Name must be at least 4 characters long</div>
+                </div>
             </div>
-            <label for="new-password">Password:
-                <input [(ngModel)]="newUser.password" type="password" id="new-password" name="password">
-            </label>
+            <div class="form-group">
+                <label for="add-user-email">Email:</label>
+                <input 
+                    formControlName="email" required email
+                    type="email" id="add-user-email" name="email" class="form-control"
+                    [ngClass]="{'is-invalid':profileForm.get('email').touched && profileForm.get('email').invalid}" />
+                <div *ngIf="profileForm.get('email').touched && profileForm.get('email').invalid" class="invalid-feedback">
+                    <div *ngIf="profileForm.get('email').errors.required">Email is required</div>
+                    <div *ngIf="profileForm.get('email').errors.email">Email must be a valid email address</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="inputGroupSelect01">Select role</label>
+                    </div>
+                    <select 
+                        formControlName="role" required
+                        class="custom-select" name="role" id="inputGroupSelect01"
+                        [ngClass]="{'is-invalid':profileForm.get('role').touched && profileForm.get('role').invalid}">
+                      <option value="admin">Admin</option>
+                      <option value="user">User</option>
+                    </select>
+                    <div *ngIf="profileForm.get('role').touched && profileForm.get('role').invalid" class="invalid-feedback">
+                        <div *ngIf="profileForm.get('role').errors.required">Please select role</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="add-user-pass">Password:</label>
+                <input
+                    formControlName="password" required minlength="4"
+                    type="password" id="add-user-pass" name="password" class="form-control"
+                    [ngClass]="{'is-invalid':profileForm.get('password').touched && profileForm.get('password').invalid}" />
+                <div *ngIf="profileForm.get('password').touched && profileForm.get('password').invalid" class="invalid-feedback">
+                    <div *ngIf="profileForm.get('password').errors.required">Password is required</div>
+                    <div *ngIf="profileForm.get('password').errors.minlength">Password must be at least 4 characters long</div>
+                </div>
+            </div>
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Save click'); addNewUser()">Save</button>
+        <button 
+            type="button" class="btn btn-success" 
+            (click)="c('Save click'); addNewUser()"
+            [disabled]="!profileForm.valid" >
+            Create
+        </button>
     </div>
 </ng-template>
 

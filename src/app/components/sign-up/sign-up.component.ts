@@ -4,21 +4,12 @@ import { DataService } from './../../services/data.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { IUser } from 'src/app/models/user';
-
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-
-  public newUser: IUser = {
-    name: '',
-    email: '',
-    role: 'user',
-    password: ''
-  };
 
   public profileForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -38,9 +29,6 @@ export class SignUpComponent implements OnInit {
 
   public addNewUser(): void {
     this.dataService.addNewUser(this.profileForm.value);
-    this.newUser.name = '';
-    this.newUser.email = '';
-    this.newUser.password = '';
     this.router.navigateByUrl('/login');
   }
 
