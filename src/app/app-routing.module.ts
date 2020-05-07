@@ -5,7 +5,6 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ListComponent } from './components/list/list.component';
 
-
 const routes: Routes = [
   {
     path: '',

@@ -1,23 +1,51 @@
 <div class="flex-container">
     <div class="signup-body">
-        <div class="signup-header">
-            <button (click)="goBack()" title="Back to Sign In" class="back-btn">
+        <div class="signup-header bg-primary">
+            <button (click)="goBack()" title="Back to Sign In" class="btn btn-outline-light back-btn">
                 back
             </button>
             <h4>Sign Up</h4>
         </div>
         <div class="signup-content">
-            <form class="signup-form">
-                <label for="signup-name">Name:
-                    <input type="text" id="signup-name">
-                </label>
-                <label for="signup-email">Email:
-                    <input type="email" id="signup-email">
-                </label>
-                <label for="signup-pass">Password:
-                    <input type="password" id="signup-pass">
-                </label>
-                <input class="signup-btn" type="submit" value="Submit">
+            <form class="signup-form" [formGroup]="profileForm" (ngSubmit)="addNewUser()">
+                <div class="form-group">
+                    <label for="signup-name">Name:</label>
+                    <input 
+                        formControlName="name" required minlength="4"
+                        type="text" id="signup-name" name="name" class="form-control"
+                        [ngClass]="{'is-invalid':profileForm.get('name').touched && profileForm.get('name').invalid}" />
+                    <div *ngIf="profileForm.get('name').touched && profileForm.get('name').invalid" class="invalid-feedback">
+                        <div *ngIf="profileForm.get('name').errors.required">Name is required</div>
+                        <div *ngIf="profileForm.get('name').errors.minlength">Name must be at least 4 characters long</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email:</label>
+                    <input 
+                        formControlName="email" required email
+                        type="email" id="signup-email" name="email" class="form-control"
+                        [ngClass]="{'is-invalid':profileForm.get('email').touched && profileForm.get('email').invalid}" />
+                    <div *ngIf="profileForm.get('email').touched && profileForm.get('email').invalid" class="invalid-feedback">
+                        <div *ngIf="profileForm.get('email').errors.required">Email is required</div>
+                        <div *ngIf="profileForm.get('email').errors.email">Email must be a valid email address</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-pass">Password:</label>
+                    <input
+                        formControlName="password" required minlength="4"
+                        type="password" id="signup-pass" name="password" class="form-control"
+                        [ngClass]="{'is-invalid':profileForm.get('password').touched && profileForm.get('password').invalid}" />
+                    <div *ngIf="profileForm.get('password').touched && profileForm.get('password').invalid" class="invalid-feedback">
+                        <div *ngIf="profileForm.get('password').errors.required">Password is required</div>
+                        <div *ngIf="profileForm.get('password').errors.minlength">Password must be at least 4 characters long</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input 
+                        class="btn btn-primary" type="submit" value="Submit" style="width: 100%;"
+                        [disabled]="!profileForm.valid" (click)='addNewUser()'/>
+                </div>
             </form>
         </div>
     </div>

@@ -1,6 +1,7 @@
+import { IUser } from 'src/app/models/user';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +10,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
+  public user: IUser;
+
   public profileForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('', Validators.email),
+    password: new FormControl('', [Validators.required, Validators.minLength(4)])
   });
 
   constructor(

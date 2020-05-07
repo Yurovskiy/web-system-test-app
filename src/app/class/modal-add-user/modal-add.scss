@@ -1,38 +1,8 @@
-.list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-
-    h4 {
-        margin: 0;
-        font-size: 20px;
-        color: #ffffff;
-        text-transform: uppercase;
-    }
-}
-
-.table td, table th {
-    vertical-align: inherit;
-}
-
-.buttons-group {
-    button {
-        margin-left: 10px;
-    }
-}
-
-.pagination {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-}
-
 .close {
     opacity: 0.8;
 }
 
-.edit-user {
+.add-user {
     display: grid;
     gap: 15px;
 

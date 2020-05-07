@@ -1,0 +1,35 @@
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header bg-primary">
+        <h4 class="modal-title text-white" id="modal-basic-title">Create new profile</h4>
+        <button type="button" class="close text-white" aria-label="Close" (click)="d('Cross click')" style="outline: none;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="add-user" (ngSubmit)="addNewUser()">
+            <label for="new-name">Name:
+                <input [(ngModel)]="newUser.name" type="text" id="new-name" name="name">
+            </label>
+            <label for="new-email">Email:
+                <input [(ngModel)]="newUser.email" type="text" id="new-email" name="email">
+            </label>
+            <div class="btn-group btn-group-toggle radio-section" ngbRadioGroup name="radioBasic" [(ngModel)]="newUser.role">
+                Select role:
+                <label ngbButtonLabel class="btn-primary text-white">
+                    <input ngbButton type="radio" value="admin"> Admin
+                </label>
+                <label ngbButtonLabel class="btn-primary text-white">
+                    <input ngbButton type="radio" value="user"> User
+                </label>
+            </div>
+            <label for="new-password">Password:
+                <input [(ngModel)]="newUser.password" type="password" id="new-password" name="password">
+            </label>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Save click'); addNewUser()">Save</button>
+    </div>
+</ng-template>
+
+<button class="btn btn-outline-light" (click)="open(content)">Create</button>

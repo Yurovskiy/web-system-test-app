@@ -1,12 +1,12 @@
-export interface IUser extends IUserLog {
+export interface IUser extends IUserData {
     password: string;
-    role_name: string;
-    token: string;
+    role_name?: string;
+    token?: string;
 }
 
-export interface IListResp {
+export interface IUserList {
     current_page: number;
-    data: Array<IUserLog>;
+    data: Array<IUserData>;
     first_page_url: string;
     from: number;
     last_page: number;
@@ -19,8 +19,8 @@ export interface IListResp {
     total: number;
 }
 
-export interface IUserLog {
-    id: number;
+export interface IUserData {
+    id?: number;
     name: string;
     email: string;
     role: string;

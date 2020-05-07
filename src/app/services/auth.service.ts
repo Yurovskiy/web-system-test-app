@@ -20,7 +20,6 @@ export class AuthService {
     this.http.post<IUser>(`${this.api}/login`, user)
       .subscribe((auth: IUser) => {
         if (auth) {
-          console.log(auth);
           localStorage.setItem('token', JSON.stringify(auth.token));
           this.router.navigateByUrl('/list');
         }

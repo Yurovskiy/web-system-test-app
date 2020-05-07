@@ -1,10 +1,85 @@
 <div class="list-container">
-    <div class="list-header">
+    <div class="list-header bg-primary">
         <h4>User list</h4>
+        <div>
+            <ngbd-modal-add></ngbd-modal-add>
+        </div>
     </div>
     <div class="list-content">
-        <div>
-            
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" sortable="name">Name</th>
+                    <th scope="col" sortable="area">Role</th>
+                    <th scope="col" sortable="population">Email</th>
+                    <th>Edit state</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of usersList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+                    <th scope="row">{{ user.id }}</th>
+                    <td> {{ user.name }} </td>
+                    <td> {{ user.role }} </td>
+                    <td> {{ user.email }} </td>
+                    <td class="buttons-group">
+                        <ng-template #content let-c="close" let-d="dismiss">
+                            <div class="modal-header bg-primary">
+                                <h4 class="modal-title text-white" id="modal-basic-title">Edit profile</h4>
+                                <button type="button" class="close text-white" aria-label="Close"
+                                    (click)="d('Cross click')" style="outline: none;">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="edit-user" (ngSubmit)="updateUser(user)">
+                                    <label for="new-name">Name:
+                                        <input [(ngModel)]="user.name" type="text" id="new-name" name="name">
+                                    </label>
+                                    <label for="new-email">Email:
+                                        <input [(ngModel)]="user.email" type="text" id="new-email" name="email">
+                                    </label>
+                                    <div class="btn-group btn-group-toggle radio-section" ngbRadioGroup
+                                        name="radioBasic" [(ngModel)]="user.role">
+                                        Select role:
+                                        <label ngbButtonLabel class="btn-primary text-white">
+                                            <input ngbButton type="radio" value="admin"> Admin
+                                        </label>
+                                        <label ngbButtonLabel class="btn-primary text-white">
+                                            <input ngbButton type="radio" value="user"> User
+                                        </label>
+                                    </div>
+                                    <label for="new-password">Password:
+                                        <input type="password" id="new-password"
+                                            name="password">
+                                    </label>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-dark"
+                                    (click)="c('Save click'); updateUser(user)">Save</button>
+                            </div>
+                        </ng-template>
+
+                        <button class="btn btn-warning" (click)="open(content)">Edit</button>
+                        <!-- <button routerLink="/user/{{user.id}}" class="btn-warning" ngbButtonLabel>
+                            Edit
+                        </button> -->
+                        <button (click)="deleteUser(user)" class="btn-danger" ngbButtonLabel>
+                            Remove
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <ngb-pagination 
+            [collectionSize]="usersList.length" 
+            [pageSize]="pageSize" 
+            [(page)]="page" 
+            [boundaryLinks]="true">
+        </ngb-pagination>
         </div>
     </div>
 </div>
