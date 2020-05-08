@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,7 +13,7 @@ import { IUserList, IUser, IUserData } from './../../models/user';
   styleUrls: ['./list.component.scss'],
   providers: [NgbModalConfig, NgbModal]
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class ListComponent implements OnInit {
 
   public usersList: IUserData[] = [];
 
@@ -26,12 +27,16 @@ export class ListComponent implements OnInit, OnDestroy {
     role: new FormControl('', Validators.required)
   });
 
+  public role = '';
+
   constructor(
     public authService: AuthService,
     private dataService: DataService,
+    private router: Router,
     config: NgbModalConfig,
     private modalService: NgbModal,
   ) {
+    this.userRole();
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -43,8 +48,23 @@ export class ListComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
-    this.dataService.getAllUsers.unsubscribe();
+  // ngOnDestroy(): void {
+  //   this.dataService.getAllUsers.unsubscribe();
+  // }
+
+  private userRole() {
+    this.role = JSON.parse(localStorage.getItem('role'));
+    if (this.role === 'admin') {
+      return this.role;
+    } else {
+      return this.role;
+    }
+  }
+
+  public logOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    this.router.navigateByUrl('/login');
   }
 
   private getUsers(): void {

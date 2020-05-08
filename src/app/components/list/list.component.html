@@ -1,8 +1,14 @@
 <div class="list-container">
     <div class="list-header bg-primary">
         <h4>User list</h4>
-        <div>
-            <ngbd-modal-add></ngbd-modal-add>
+        <div class="list-header-left-side">
+            <div *ngIf="role === 'admin'">
+                <ngbd-modal-add></ngbd-modal-add>
+            </div>
+            <div class="sign-out">
+                <span class="text-white"> {{ role }} </span>
+                <i (click)="logOut()" title="Log Out" class="fas fa-sign-out-alt"></i>
+            </div>
         </div>
     </div>
     <div class="list-content">
@@ -13,7 +19,7 @@
                     <th scope="col" sortable="name">Name</th>
                     <th scope="col" sortable="area">Role</th>
                     <th scope="col" sortable="population">Email</th>
-                    <th>Edit state</th>
+                    <th *ngIf="role === 'admin'">Edit state</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +28,7 @@
                     <td> {{ user.name }} </td>
                     <td> {{ user.role }} </td>
                     <td> {{ user.email }} </td>
-                    <td class="buttons-group">
+                    <td *ngIf="role === 'admin'" class="buttons-group">
 
                         <ng-template #content let-c="close" let-d="dismiss">
                             <div class="modal-header bg-primary">

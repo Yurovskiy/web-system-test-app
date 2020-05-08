@@ -21,9 +21,14 @@ export class AuthService {
       .subscribe((auth: IUser) => {
         if (auth) {
           localStorage.setItem('token', JSON.stringify(auth.token));
+          localStorage.setItem('role', JSON.stringify(auth.role));
           this.router.navigateByUrl('/list');
         }
       });
+  }
+
+  public loggedIn() {
+    return !!localStorage.getItem('token');
   }
 
 }
